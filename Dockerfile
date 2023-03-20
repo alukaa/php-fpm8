@@ -25,3 +25,9 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
 RUN  chmod a+x /usr/bin/composer \
     && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 COPY ./upload.ini /usr/local/etc/php/conf.d/upload.ini
+
+
+RUN apt-get update; \
+    apt-get install -y libmagickwand-dev; \
+    pecl install imagick; \
+    docker-php-ext-enable imagick;
