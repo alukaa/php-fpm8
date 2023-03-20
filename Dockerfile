@@ -8,7 +8,6 @@ RUN apt-get clean all && apt-get update && apt-get install -y --no-install-recom
         libjpeg62-turbo-dev \
         libpng-dev \
         libzip-dev \
-        ibmagickwand-dev \
     && docker-php-ext-install zip \
     && docker-php-ext-install pdo pdo_mysql mysqli \
     && docker-php-ext-install -j$(nproc) iconv \
@@ -27,6 +26,7 @@ RUN  chmod a+x /usr/bin/composer \
     && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 COPY ./upload.ini /usr/local/etc/php/conf.d/upload.ini
 
-
-RUN pecl install imagick \
-    && docker-php-ext-enable imagick
+RUN apt-get update && apt-get install -y \
+    libmagickwand-dev --no-install-recommends \
+    && pecl install imagick \
+	&& docker-php-ext-enable imagick
