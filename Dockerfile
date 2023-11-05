@@ -8,13 +8,12 @@ RUN apt-get clean all && apt-get update && apt-get install -y --no-install-recom
         libjpeg62-turbo-dev \
         libpng-dev \
         libzip-dev \
-        libjpeg-turbo \
-        libjpeg-turbo-dev \
+        libjpeg \
         libwebp-dev \
     && docker-php-ext-install zip \
     && docker-php-ext-install pdo pdo_mysql mysqli \
     && docker-php-ext-install -j$(nproc) iconv \
-    && docker-php-ext-configure gd  --with-webp \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-install bcmath \
     && docker-php-ext-install calendar
